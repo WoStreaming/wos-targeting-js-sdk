@@ -1,0 +1,36 @@
+import WOSTargetingParams from "./WOSTargetingParams";
+
+export default class WOSTargetingClient {
+	clientId = "0";
+	hasPrivacyPolicy = false;
+	useTestProfile = false;
+
+	constructor(clientId, hasPrivacyPolicy, useTestProfile = false) {
+		this.clientId = clientId;
+		this.hasPrivacyPolicy = hasPrivacyPolicy;
+		this.useTestProfile = useTestProfile;
+	}
+
+	getTargetingParams() {
+		return this.getAudienceInfo().then(profile => {
+			return new WOSTargetingParams(profile);
+		});
+	}
+
+	getAudienceInfo() {
+		// NOTE: Awkward as it may be, this has to use a JSONP request to get audience data since a normal
+		//       XHR request blocks 3rd-party cookies from being sent
+		return new Promise((res, rej) => {
+			const cbName = `wost${(Math.random() * 1000) | 0}`;
+			const audLoadScript = document.createElement("script");
+			audLoadScript.src = `https://bcp.crwdcntrl.net/5/c=${this.clientId}/pe=y/callback=${cbName}`;
+			document.head.appendChild(audLoadScript);
+
+			window[cbName] = ({ Profile: profile }) => {
+				delete window[cbName];
+				document.head.removeChild(audLoadScript);
+				res(profile);
+			};
+		});
+	}
+}
