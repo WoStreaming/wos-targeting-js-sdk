@@ -2,15 +2,13 @@
 	"name": "wos-targeting-js-sdk",
 	"version": "1.0.0",
 	"description": "WideOrbit Streaming JavaScript SDK for Targeting",
-	"main": "index.js",
+	"main": "src/client/index.js",
 	"scripts": {
-		"build": "babel-node -e webpack",
-		"start": "nodemon -x babel-node",
-		"start:dev": "NODE_ENV=development webpack serve",
+		"build": "NODE_ENV=production webpack",
+		"start": "NODE_ENV=development babel-node src/dev-server/index.js",
 		"test": "jest",
-		"lint": "eslint src/*.js",
+		"lint": "eslint src/**/*.js",
 		"lint:fix": "npm run lint -- --fix",
-		"webpack": "webpack",
 		"postinstall": "patch-package"
 	},
 	"repository": {
@@ -36,9 +34,12 @@
 		"babel-eslint": "^10.1.0",
 		"babel-loader": "^8.0.6",
 		"babel-minify-webpack-plugin": "^0.3.1",
+		"babel-preset-minify": "^0.5.1",
+		"clean-webpack-plugin": "^3.0.0",
 		"eslint": "^6.8.0",
 		"eslint-config-prettier": "^6.10.0",
 		"eslint-plugin-prettier": "^3.1.2",
+		"express": "^4.17.1",
 		"html-webpack-plugin": "^4.0.0-beta.11",
 		"jest": "^25.1.0",
 		"js-cookie": "^2.2.1",
@@ -48,7 +49,10 @@
 		"query-string": "^6.11.1",
 		"uuid": "^7.0.2",
 		"webpack": "^5.0.0-beta.14",
-		"webpack-cli": "^4.0.0-beta.8",
-		"webpack-dev-server": "^3.10.3"
+		"webpack-bundle-analyzer": "^3.6.1",
+		"webpack-cli": "^3.3.11",
+		"webpack-dev-middleware": "^3.7.2",
+		"webpack-dev-server": "^3.10.3",
+		"webpack-hot-middleware": "^2.25.0"
 	}
 }
