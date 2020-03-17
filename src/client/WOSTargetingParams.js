@@ -17,13 +17,23 @@ export default class WOSTargetingParams {
 		}
 	}
 
-	fromQuery(queryString) {
-		qs.parse(queryString);
+	toJSON = () => this.getParams();
+
+	getParams() {
+		return { ...this._params };
 	}
 
-	toString() {
+	setParams(paramsObj = {}) {
+		Object.assign(this._params, paramsObj);
+	}
+
+	toString(additionalParams = {}) {
 		// Send array as comma-separated list
-		const params = { ...this._params, ltids: this._params.ltids && this._params.ltids.join(",") };
+		const params = {
+			...this._params,
+			ltids: this._params.ltids && this._params.ltids.join(","),
+			...additionalParams
+		};
 		return qs.stringify(params);
 	}
 }
