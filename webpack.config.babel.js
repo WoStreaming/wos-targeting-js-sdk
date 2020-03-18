@@ -4,7 +4,19 @@ import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import { DefinePlugin, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin } from "webpack";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
-const ifDev = (tval, fval) => (/^dev/i.test(process.env.NODE_ENV) ? tval : fval);
+const ifEnv = (tval, fval, eVarName, cond = Boolean.bind(null)) => {
+	const evar = process.env[eVarName];
+	let result;
+	if (typeof cond === "string") {
+		result = evar === cond;
+	} else if (cond instanceof RegExp) {
+		result = cond.test(evar);
+	} else {
+		result = cond(evar);
+	}
+	return result ? tval : fval;
+};
+const ifDev = (tval, fval) => ifEnv(tval, fval, "NODE_ENV", /^dev/i);
 
 const prodConfig = {
 	name: "prod-bundle",
@@ -35,11 +47,15 @@ const prodConfig = {
 		new CleanWebpackPlugin(),
 		new DefinePlugin({ IS_DEV_ENV: false }),
 		new MinifyPlugin(),
-		new BundleAnalyzerPlugin({
-			defaultSizes: "gzip",
-			exclude: [/^((?!(dist\/)).)*\.js$/]
-		})
-	]
+		ifEnv(
+			new BundleAnalyzerPlugin({
+				defaultSizes: "gzip",
+				exclude: [/^((?!(dist\/)).)*\.js$/]
+			}),
+			undefined,
+			"ANALYZE_BUNDLE"
+		)
+	].filter(Boolean)
 };
 
 const devConfig = {
