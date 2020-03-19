@@ -10,7 +10,15 @@
 		"test": "jest",
 		"lint": "eslint src/**/*.js",
 		"lint:fix": "npm run lint -- --fix",
-		"postinstall": "patch-package"
+		"postinstall": "patch-package",
+		"add-github-remote": "[[ $(git remote show|grep github) ]] || git remote add github git@github.com:WoStreaming/wos-targeting-js-sdk.git",
+		"release:clean": "rm -rf /tmp/$RELEASE_DIR; git worktree prune; git branch -D $RELEASE_DIR; exit 0",
+		"release:get-master": "git fetch && git worktree add /tmp/$RELEASE_DIR origin/master",
+		"release:bump-version": "./scripts/release-quiz.sh",
+		"release:build": "npm i && npm run build",
+		"release:push": "git push -u origin master --tags && git push github master --tags",
+		"release:publish": "npm publish --access public",
+		"release": "./scripts/do-release.sh"
 	},
 	"repository": {
 		"type": "git",

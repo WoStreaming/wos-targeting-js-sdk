@@ -9,12 +9,6 @@ npm start
 
 Running that will compile the SDK and run a dev server with hot reloading enabled.
 
-For WideOrbit developers working from the private repo:
-
-```bash
-git remote add github git@github.com:WoStreaming/wos-targeting-js-sdk.git
-```
-
 **Note**
 
 > You will likely have noticed that it opened a browser tab that allows you to visualize and navigate
@@ -51,12 +45,6 @@ npm run build:review
 
 # Generating a release
 
-**TODO:** This should be scripted
-
 ```bash
-npm version [new version (e.g. 1.0.2)]
-git push --tags
-git push github master --tags
-npm run build
-npm publish --access public
+npm run release
 ```
