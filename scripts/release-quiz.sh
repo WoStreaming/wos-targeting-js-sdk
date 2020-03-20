@@ -66,4 +66,4 @@ fi
 
 cmd="npm version $version_cmd"
 echo -e "> $cmd\n"
-`$cmd`
+eval "$cmd"
