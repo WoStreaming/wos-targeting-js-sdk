@@ -1,4 +1,7 @@
 import WOSTargetingParams from "./WOSTargetingParams";
+import { addScript } from "./utils";
+
+addScript("https://tags.crwdcntrl.net/c/6395/cc_af.js");
 
 export default class WOSTargetingClient {
 	clientId = "0";
@@ -12,7 +15,7 @@ export default class WOSTargetingClient {
 	}
 
 	getTargetingParams() {
-		return this.getAudienceInfo().then(profile => {
+		return this.getAudienceInfo().then((profile) => {
 			return new WOSTargetingParams(profile);
 		});
 	}
@@ -22,9 +25,7 @@ export default class WOSTargetingClient {
 		//       XHR request blocks 3rd-party cookies from being sent
 		return new Promise((res, rej) => {
 			const cbName = `wost${(Math.random() * 1000) | 0}`;
-			const audLoadScript = document.createElement("script");
-			audLoadScript.src = `https://bcp.crwdcntrl.net/5/c=${this.clientId}/pe=y/callback=${cbName}`;
-			document.head.appendChild(audLoadScript);
+			const audLoadScript = addScript(`https://bcp.crwdcntrl.net/5/c=${this.clientId}/pe=y/callback=${cbName}`);
 
 			window[cbName] = ({ Profile: profile }) => {
 				delete window[cbName];

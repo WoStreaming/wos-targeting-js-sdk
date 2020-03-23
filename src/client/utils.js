@@ -9,3 +9,10 @@ export function getAdvertisingId(profileId) {
 	Cookies.set(AD_ID_COOKIE, adId, { domain: location.hostname, path: "", expires: 180 });
 	return Cookies.get(AD_ID_COOKIE);
 }
+
+export function addScript(src, head = true) {
+	const script = document.createElement("script");
+	script.src = src;
+	document[head ? "head" : "body"].appendChild(script);
+	return script;
+}
