@@ -24,12 +24,12 @@ const prodConfig = {
 	entry: `${__dirname}/src/client`,
 	output: {
 		filename: "wos-targeting-sdk.js",
-		path: `${__dirname}/dist`
+		path: `${__dirname}/dist`,
 	},
 
 	performance: {
 		hints: ifDev("warning", "error"),
-		maxEntrypointSize: 30000
+		maxEntrypointSize: 30000,
 	},
 
 	module: {
@@ -37,10 +37,10 @@ const prodConfig = {
 			{
 				test: /\.js$/,
 				use: {
-					loader: "babel-loader"
-				}
-			}
-		]
+					loader: "babel-loader",
+				},
+			},
+		],
 	},
 
 	plugins: [
@@ -50,12 +50,12 @@ const prodConfig = {
 		ifEnv(
 			new BundleAnalyzerPlugin({
 				defaultSizes: "gzip",
-				exclude: [/^((?!(dist\/)).)*\.js$/]
+				exclude: [/^((?!(dist\/)).)*$/],
 			}),
 			undefined,
 			"ANALYZE_BUNDLE"
-		)
-	].filter(Boolean)
+		),
+	].filter(Boolean),
 };
 
 const devConfig = {
@@ -68,33 +68,33 @@ const devConfig = {
 		path: `${__dirname}/dist`,
 		publicPath: "/",
 		hotUpdateChunkFilename: "hot/[hash].hot-update.js",
-		hotUpdateMainFilename: "hot/[hash].hot-update.json"
+		hotUpdateMainFilename: "hot/[hash].hot-update.json",
 	},
 
 	optimization: {
 		noEmitOnErrors: true,
-		removeEmptyChunks: true
+		removeEmptyChunks: true,
 	},
 
 	module: {
 		rules: [
 			{
 				test: /\.js$/,
+				exclude: /node_modules\/.*(html-entities)/,
 				use: {
-					loader: "babel-loader"
-				}
-			}
-		]
+					loader: "babel-loader",
+				},
+			},
+		],
 	},
 
 	plugins: [
 		new CleanWebpackPlugin(),
 		new DefinePlugin({ IS_DEV_ENV: ifDev(true, false) }),
 		new HtmlWebpackPlugin({
-			template: `${__dirname}/src/dev-server/tag-dev.ejs`,
-			meta: { charset: "utf-8" }
+			title: "WO Streaming Targeting SDK",
 		}),
-		new HotModuleReplacementPlugin()
-	].filter(Boolean)
+		new HotModuleReplacementPlugin(),
+	].filter(Boolean),
 };
 export default [ifDev(devConfig), prodConfig].filter(Boolean);
