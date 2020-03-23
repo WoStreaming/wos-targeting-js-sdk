@@ -17,7 +17,7 @@ const params = client.getTargetingParams();
 console.log(params.toJSON()); // Returns params object
 // Output:
 // {
-//   "lmt": "0",
+//   "dnt": "0",
 //   "user-id": "5a08398c-1b8f-5230-919f-a94dc36bb5b7",
 //   "privacypolicy": false,
 //   "lptid": "f412452b20820396319d8f35b14d96cb",
@@ -26,7 +26,7 @@ console.log(params.toJSON()); // Returns params object
 
 console.log(params.toString()); // Also castable: console.log(`?${params}`)
 // Output:
-// lmt=0&lptid=f412452b20820396319d8f35b14d96cb&ltids=99286%2C513599%2C513593%2C513421&privacypolicy=false&user-id=5a08398c-1b8f-5230-919f-a94dc36bb5b7
+// dnt=0&lptid=f412452b20820396319d8f35b14d96cb&ltids=99286%2C513599%2C513593%2C513421&privacypolicy=false&user-id=5a08398c-1b8f-5230-919f-a94dc36bb5b7
 ```
 
 # API
