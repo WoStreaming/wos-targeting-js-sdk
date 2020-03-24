@@ -18,6 +18,7 @@
 		"release:push": "git push origin HEAD:master --follow-tags && git push github HEAD:master --follow-tags",
 		"release:build": "npm i && npm run build",
 		"release:publish": "npm publish --access public",
+		"release:test": "npm run build && ./scripts/test-release.sh",
 		"release": "./scripts/do-release.sh"
 	},
 	"repository": {

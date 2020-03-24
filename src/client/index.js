@@ -1,5 +1,4 @@
 import WOSTargetingClient from "./WOSTargetingClient";
-import WOSTargetingParams from "./WOSTargetingParams";
 
 // NOTE: This section gets stripped from the production build due to the DefinePlugin and dead code elimination
 if (IS_DEV_ENV) {
@@ -11,7 +10,6 @@ if (IS_DEV_ENV) {
 
 if (window) {
 	window["WOSTargetingClient"] = WOSTargetingClient;
-	window["WOSTargetingParams"] = WOSTargetingParams;
 }
 
-export default { WOSTargetingClient, WOSTargetingParams };
+export default WOSTargetingClient;
