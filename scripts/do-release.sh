@@ -8,7 +8,7 @@ npm run add-github-remote \
   && npm run release:get-master \
   && cd "/tmp/$RELEASE_DIR" \
   && npm run release:bump-version \
-  && npm run release:build \
   && npm run release:push \
+  && npm run release:build \
   && npm run release:publish \
   && npm run release:clean

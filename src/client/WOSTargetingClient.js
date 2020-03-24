@@ -8,15 +8,14 @@ export default class WOSTargetingClient {
 	hasPrivacyPolicy = false;
 	useTestProfile = false;
 
-	constructor(clientId, hasPrivacyPolicy, useTestProfile = false) {
+	constructor(clientId, hasPrivacyPolicy) {
 		this.clientId = clientId;
 		this.hasPrivacyPolicy = hasPrivacyPolicy;
-		this.useTestProfile = useTestProfile;
 	}
 
 	getTargetingParams() {
 		return this.getAudienceInfo().then((profile) => {
-			return new WOSTargetingParams(profile);
+			return new WOSTargetingParams(profile, { privacypolicy: this.hasPrivacyPolicy });
 		});
 	}
 
