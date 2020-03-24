@@ -45,6 +45,15 @@ npm run build:review
 
 # Generating a release
 
+To publish a release you must first be logged in to NPM in the console. To do so, run this:
+
+```
+npm adduser --scope=@wostreaming
+```
+
+You will be prompted for you username and password. You should also have 2FA setup so you will be prompted for your
+OTP whenever you do a release.
+
 ```bash
 npm run release
 ```
