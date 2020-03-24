@@ -54,6 +54,17 @@ npm adduser --scope=@wostreaming
 You will be prompted for you username and password. You should also have 2FA setup so you will be prompted for your
 OTP whenever you do a release.
 
+To test the packed release before actually publishing and building, run this:
+
+```
+npm run release:test
+```
+
+That will pack the release, create a temp directory, do a Webpack build, pulling in the packed release, and
+open a browser window with the script injected for testing the full development workflow.
+
+Finally, to publish a working release:
+
 ```bash
 npm run release
 ```

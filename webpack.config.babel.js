@@ -25,6 +25,9 @@ const prodConfig = {
 	output: {
 		filename: "wos-targeting-sdk.js",
 		path: `${__dirname}/dist`,
+		library: "WOSTargetingClient",
+		libraryExport: "default",
+		libraryTarget: "umd",
 	},
 
 	performance: {
@@ -66,6 +69,9 @@ const devConfig = {
 	output: {
 		filename: "wos-targeting-sdk.dev.js",
 		path: `${__dirname}/dist`,
+		library: "WOSTargetingClient",
+		libraryExport: "default",
+		libraryTarget: "umd",
 		publicPath: "/",
 		hotUpdateChunkFilename: "hot/[hash].hot-update.js",
 		hotUpdateMainFilename: "hot/[hash].hot-update.json",

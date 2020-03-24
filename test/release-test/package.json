@@ -1,0 +1,14 @@
+{
+	"name": "release-test",
+	"version": "1.0.0",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "webpack-dev-server --mode production --open"
+	},
+	"dependencies": {
+		"html-webpack-plugin": "^4.0.1",
+		"webpack": "^4.42.1",
+		"webpack-cli": "^3.3.11",
+		"webpack-dev-server": "^3.10.3"
+	}
+}
