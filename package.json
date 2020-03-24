@@ -15,8 +15,8 @@
 		"release:clean": "rm -rf /tmp/$RELEASE_DIR; git worktree prune; git branch -D $RELEASE_DIR; exit 0",
 		"release:get-master": "git fetch && git worktree add /tmp/$RELEASE_DIR origin/master",
 		"release:bump-version": "./scripts/release-quiz.sh",
+		"release:push": "git push origin HEAD:master --follow-tags && git push github HEAD:master --follow-tags",
 		"release:build": "npm i && npm run build",
-		"release:push": "git push -u origin master --follow-tags && git push github master --follow-tags",
 		"release:publish": "npm publish --access public",
 		"release": "./scripts/do-release.sh"
 	},

@@ -12,32 +12,31 @@ npm i @wostreaming/targeting-sdk
 import WOSTargetingClient from "@wostreaming/targeting-sdk";
 
 const client = WOSTargetingClient(1234, true);
-const params = client.getTargetingParams();
+client.getTargetingParams().then((params) => {
+	console.log(params.toJSON()); // Returns params object
+	// Output:
+	// {
+	//   "dnt": "0",
+	//   "user-id": "5a08398c-1b8f-5230-919f-a94dc36bb5b7",
+	//   "privacypolicy": false,
+	//   "lptid": "f412452b20820396319d8f35b14d96cb",
+	//   "ltids": [ "99286", "513599", "513593", "513421", ...]
+	// }
 
-console.log(params.toJSON()); // Returns params object
-// Output:
-// {
-//   "dnt": "0",
-//   "user-id": "5a08398c-1b8f-5230-919f-a94dc36bb5b7",
-//   "privacypolicy": false,
-//   "lptid": "f412452b20820396319d8f35b14d96cb",
-//   "ltids": [ "99286", "513599", "513593", "513421", ...]
-// }
-
-console.log(params.toString()); // Also castable: console.log(`?${params}`)
-// Output:
-// dnt=0&lptid=f412452b20820396319d8f35b14d96cb&ltids=99286%2C513599%2C513593%2C513421&privacypolicy=false&user-id=5a08398c-1b8f-5230-919f-a94dc36bb5b7
+	console.log(params.toString()); // Also castable to string: console.log(`?${params}`)
+	// Output:
+	// dnt=0&lptid=f412452b20820396319d8f35b14d96cb&ltids=99286%2C513599%2C513593%2C513421&privacypolicy=false&user-id=5a08398c-1b8f-5230-919f-a94dc36bb5b7
+});
 ```
 
 # API
 
 ## **class** WOSTargetingClient
 
-### # constructor(clientId: string, hasPrivacyPolicy: boolean, useTestProfile: boolean = false)
+### # constructor(clientId: string, hasPrivacyPolicy: boolean)
 
 - **clientId** Your Lotame client ID as a string or int
 - **hasPrivacyPolicy** Have your users agreed to a privacy policy consenting to anonymized tracking and ad targeting?
-- **useTestProfile** Useful for testing in development. When `true` Lotame will send fake test data.
 
 ### # getAudienceInfo(): Promise<Profile>
 
@@ -71,5 +70,5 @@ Set additional parameters or override existing ones
 ### # toString(additionalParams: Object = {})
 
 Returns a URL encoded querystring with all the parameters managed by this object
-as well as optional additional parameters to add to the query string but not set
-on this object.
+as well as optional additional parameters to override or add to the query string but not set
+on this object. This will properly filter out private information if `dnt` is overridden.
