@@ -14,9 +14,10 @@ export default class WOSTargetingClient {
 	}
 
 	getTargetingParams() {
-		return this.getAudienceInfo().then((profile) => {
-			return new WOSTargetingParams(profile, { privacypolicy: this.hasPrivacyPolicy });
-		});
+		const makeParams = (profile = {}) => new WOSTargetingParams(profile, { privacypolicy: this.hasPrivacyPolicy });
+		return this.getAudienceInfo()
+			.then(makeParams)
+			.catch((err) => (console.error(`Error getting targeting params: ${err}`), makeParams()));
 	}
 
 	getAudienceInfo() {

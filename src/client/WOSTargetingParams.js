@@ -5,10 +5,10 @@ export default class WOSTargetingParams {
 	constructor(profile, params = {}) {
 		this._params = {
 			dnt: navigator.doNotTrack === "1" ? "1" : "0",
-			"user-id": getAdvertisingId(profile.tpid),
+			"user-id": profile.tpid ? getAdvertisingId(profile.tpid) : "00000000-0000-0000-0000-000000000000",
 			privacypolicy: false,
 			lptid: profile.tpid,
-			ltids: profile.Audiences.Audience.map((aud) => aud.id),
+			ltids: profile.Audiences && profile.Audiences.Audience.map((aud) => aud.id),
 		};
 
 		this.setParams(params);
@@ -39,7 +39,7 @@ export default class WOSTargetingParams {
 	}
 
 	_filterDnt = (p) => {
-		if (p.dnt === "1") {
+		if (Number(p.dnt) === 1) {
 			delete p.lptid;
 			delete p.ltids;
 		}
