@@ -13,7 +13,8 @@ npm i @wostreaming/targeting-sdk
 
 ```js
 const client = new WOSTargetingClient(1234, true);
-client.getTargetingParams().then(function (params) {
+
+function initializePlayer(params) {
 	// Do something with `WOSTargetingParams` object
 	const qs = params.toString({
 		// ...Add extra parameters here if needed
@@ -22,9 +23,13 @@ client.getTargetingParams().then(function (params) {
 	// Notice that the `WOSTargetingParams` object can be
 	// automatically cast to a string
 	console.log(`?${qs}`);
+
 	// Example output:
-	// dnt=0&lptid=f412452b20820396319d8f35b14d96cb&ltids=99286%2C513599%2C513593%2C513421&privacypolicy=false&user-id=5a08398c-1b8f-5230-919f-a94dc36bb5b7
-});
+	// ?dnt=0&lptid=f412452b20820396319d8f35b14d96cb&ltids=99286%2C513599%2C513593%2C513421&privacypolicy=false&user-id=5a08398c-1b8f-5230-919f-a94dc36bb5b7
+}
+
+// NOTE: A call to `getTargetingParams()` should _always_ succeed, even if something goes really wrong
+client.getTargetingParams().then(initializePlayer);
 ```
 
 ### Including the SDK in your code
@@ -95,6 +100,8 @@ You generally shouldn't need to call this directly.
 ### # getTargetingParams(): Promise<WOSTargetingParams>
 
 Returns a Promise that resolves with a `WOSTargetingParams` object for working with audience info parsed and managed by the WOS Targeting SDK.
+
+> NOTE: A call to `getTargetingParams()` should _always_ succeed, even if something goes really wrong.
 
 ---
 
