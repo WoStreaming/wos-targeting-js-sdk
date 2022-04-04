@@ -1,6 +1,6 @@
 {
 	"name": "@wostreaming/targeting-sdk",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "WideOrbit Streaming JavaScript SDK for Targeting",
 	"main": "dist/wos-targeting-sdk.js",
 	"scripts": {
