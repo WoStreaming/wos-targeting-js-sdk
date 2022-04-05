@@ -2,8 +2,7 @@
 
 export RELEASE_DIR="wos-targeting-sdk_release_master"
 
-npm run add-github-remote \
-  && npm run build \
+npm run build \
   && npm run release:clean \
   && npm run release:get-master \
   && cd "/tmp/$RELEASE_DIR" \
